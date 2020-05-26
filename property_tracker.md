@@ -8,9 +8,9 @@ Rows in the properties table must have a **selection of 4** of these columns:
 - value
 - number of bedrooms
 - year built
-- buy/let status
+<!-- - buy/let status
 - square footage
-- build (detached, semi-detached, flat, etc)
+- build (detached, semi-detached, flat, etc) -->
 
 ## Your property class should have:
 
