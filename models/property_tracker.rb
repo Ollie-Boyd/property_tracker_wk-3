@@ -30,12 +30,13 @@ class PropertyTracker
 
     def update()
         db = PG.connect( { dbname: 'property_listings', host: 'localhost' } )
-        sql = "UPDATE
+        sql = "UPDATE property_tracker
+            SET
             (address,
             value,
             number_of_bedrooms,
             year_built)
-            WITH
+            =
             ($1, $2, $3, $4)
             WHERE id = $5;"
             values = [@address, @value, @number_of_bedrooms, @year_built, @id]
@@ -60,8 +61,10 @@ class PropertyTracker
         db.prepare("all", sql)
         found_properties = db.exec_prepared("all", values)
         db.close()
-        properties_as_objects = found_properties.map { |property| PropertyTracker.new(property)}
-        return properties_as_objects     
+        return nil if found_properties.first() == nil
+        property_as_hash = found_properties[0]
+        found_property = PropertyTracker.new(property_as_hash)
+        return found_property
     end
 
     def PropertyTracker.all()
